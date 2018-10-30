@@ -4,31 +4,19 @@
     <meta charset="utf-8" />
     <title>Page Title</title>
     <script src="./vue.js"></script>
-    <style>
-        .activated {
-            color:red
-        }
-    </style>
 </head>
 <body>
 
     <div id="app">
-        <div @click="handleDivClick"
-             :class="[activated]">
-          hello world
-        </div>
+        <div v-if="show" key="username">用户名:<input /></div>
+        <div v-else key="password">邮箱:<input /></div>
     </div>
 
     <script>
       var vm = new Vue({
           el:'#app',
           data:{
-              activated:""
-          },
-          methods:{
-              handleDivClick:function(){
-                  this.activated = this.activated === "activated" ? "" : "activated"
-              }
+              show:false
           }
       })
     </script>
