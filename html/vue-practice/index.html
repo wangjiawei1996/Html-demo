@@ -8,15 +8,23 @@
 <body>
 
     <div id="app">
-        <div v-if="show" key="username">用户名:<input /></div>
-        <div v-else key="password">邮箱:<input /></div>
+        <div v-for="(item, index) of list" :key="item.id">{{item.text}}---{{index}}</div>
     </div>
 
     <script>
       var vm = new Vue({
           el:'#app',
           data:{
-              show:false
+              list:[{
+                  id:"0100102",
+                  text:"hello"
+              }, {
+                  id:"232324",
+                  text:"Dell"
+              }, {
+                  id:"34837483943849",
+                  text:"Lee"
+              }]
           }
       })
     </script>
