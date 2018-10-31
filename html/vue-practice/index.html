@@ -10,7 +10,7 @@
     <div id="app">
         <div v-for="(item, index) of list">{{item}}</div>
     </div>
-
+     <!--当从控制台改变Vue项目时，可以调用两个方法：1.list.$set(vm.list, , )    2.Vue.set(vm.list )-->
     <script>
       var vm = new Vue({
           el:'#app',
