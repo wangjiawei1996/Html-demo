@@ -8,23 +8,14 @@
 <body>
 
     <div id="app">
-        <div v-for="(item, index) of list" :key="item.id">{{item.text}}---{{index}}</div>
+        <div v-for="(item, index) of list">{{item}}</div>
     </div>
 
     <script>
       var vm = new Vue({
           el:'#app',
           data:{
-              list:[{
-                  id:"0100102",
-                  text:"hello"
-              }, {
-                  id:"232324",
-                  text:"Dell"
-              }, {
-                  id:"34837483943849",
-                  text:"Lee"
-              }]
+              list:['1','2','3','4']
           }
       })
     </script>
