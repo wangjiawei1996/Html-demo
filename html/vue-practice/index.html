@@ -8,35 +8,39 @@
 <body>
 
     <div id="app">
-      <counter ref="one" @change="handleChange"></counter>
-      <counter ref="two" @change="handleChange"></counter>
+      <counter :count="2" @change="handleChange"></counter>
+      <counter :count="3" @change="handleChange"></counter>
       <div>{{total}}</div>
     </div>
     <script>
-        Vue.component('counter',{
-            template:"<div @click='handleClick'>{{number}}</div>",
-            data:function(){
-                return {
-                    number:0
-                }
-            },
-            methods:{
-                handleClick:function(){
-                    this.number++
-                    this.$emit('change')
-                }
-            }
-        })
-      var vm = new Vue({
-          el:'#app',
-          data:{
-              total:0
+      var counter = {
+          props:["count"],
+          data:function(){
+              return {
+                  number:this.count
+              }
           },
+          template:"<div @click='handleClick'>{{number}}</div>",
           methods:{
-            handleChange:function(){
-                this.total = this.$refs.one.number + this.$refs.two.number
-            }
+              handleClick:function(){
+                  this.number += 2
+                  this.$emit("change",2)
+              }
           }
+      }  
+      var vm = new Vue({
+          el:"#app",
+          data:{
+              total:5
+          },
+        components:{
+            counter:counter
+        },
+        methods:{
+            handleChange:function(step){
+                this.total += step
+            }
+        }
       })
     </script>
 </body>
