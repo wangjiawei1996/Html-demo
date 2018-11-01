@@ -8,27 +8,28 @@
 <body>
 
     <div id="app">
-        <child>
-            <template slot-scope="props">
-                <p>{{props.item}}</p>
-            </template>
-        </child>
+        <!-- <component :is="type"></component> -->
+        <child-one v-if="type === 'child-one'"></child-one>
+        <child-two v-if="type === 'child-two'"></child-two>
+        <button @click="handleClick">change</button>
     </div>
     <script>
-      Vue.component('child',{
-          data:function(){
-              return {
-                  list:[1,2,3,4]
-              }
-          },
-          template:`<div>
-                     <ul>
-                     <slot v-for="item of list" :item=item></slot>
-                     </ul>
-                    </div>`
+      Vue.component('child-one',{
+        template:"<div v-once>child-one</div>"
+      })
+      Vue.component('child-two',{
+        template:"<div v-once>child-two</div>"    //v-once可以提高组件的性能，能达到缓存的性能，优化组件
       })
       var vm = new Vue({
-          el:"#app"
+          el:"#app",
+          data:{
+              type:'child-one'
+          },
+          methods:{
+              handleClick:function(){
+                  this.type = this.type === 'child-one'?'child-two':'child-one';
+              }
+          }
       })
     </script>
 </body>
