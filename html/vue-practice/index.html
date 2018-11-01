@@ -8,17 +8,23 @@
 <body>
 
     <div id="app">
-      <child>
-          <div class="header" slot="header">header</div>
-          <div class="footer" slot="footer">footer</div>
-      </child>
+        <child>
+            <template slot-scope="props">
+                <p>{{props.item}}</p>
+            </template>
+        </child>
     </div>
     <script>
       Vue.component('child',{
+          data:function(){
+              return {
+                  list:[1,2,3,4]
+              }
+          },
           template:`<div>
-                      <slot name="header"></slot>
-                      <div class="content">content</div>
-                      <slot name="footer"></slot>
+                     <ul>
+                     <slot v-for="item of list" :item=item></slot>
+                     </ul>
                     </div>`
       })
       var vm = new Vue({
