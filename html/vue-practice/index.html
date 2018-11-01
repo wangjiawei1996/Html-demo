@@ -8,17 +8,19 @@
 <body>
 
     <div id="app">
-      <child  :content="'123'"></child>
+      <child  @click.native="handleClick"></child>
     </div>
     <script>
       Vue.component('child',{
-          props:{
-              content:[Number,String]
-          },
-          template:"<div>{{content}}</div>"
+          template:"<div>Hello World</div>"
       })
       var vm = new Vue({
-          el:"#app"
+          el:"#app",
+          methods:{
+              handleClick:function(){
+                  alert('click')
+              }
+          }
       })
     </script>
 </body>
