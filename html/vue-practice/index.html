@@ -5,24 +5,14 @@
     <title>Vue中的插槽</title>
     <script src="./vue.js"></script>
     <link rel="stylesheet" type="text/css" href="./animate.css">
-    <style>
-        .fade-enter,.fade-leave-to{
-            opacity: 0;
-        }
-        .fade-enter-active,.fade-leave-active{
-            transition: opacity 3s;
-        }
-    </style>
 </head>
 <body>
 
     <div id="app">
         <transition name="fade"
-                    type="transition"
-                    appear
-                    enter-active-class="animated swing fade-enter-active"
-                    leave-active-class="animated shake fade-leave-active"
-                    appear-active-class="animated swing"
+                    @before-enter="handleBeforeClick"
+                    @enter="handleEnter"
+                    @after-active="handleAfterClick"
         >
             <div v-if="show">Hello World</div>
         </transition>
@@ -38,6 +28,18 @@
           methods:{
               handleClick:function(){
                  this.show = !this.show
+              },
+              handleBeforeClick:function(el){
+                  el.style.color="red"
+              },
+              handleEnter:function(el, done){
+                  setTimeout(()=> {
+                      el.style.color="green"
+                      done()
+                  },2000)
+              },
+              handleAfterClick:function(el){
+                  el.style.color="#000"
               }
           }
       })
