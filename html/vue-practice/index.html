@@ -7,42 +7,38 @@
     <script src="./Velocity.js "></script>
     <link rel="stylesheet" type="text/css" href="./animate.css">
     <style>
-        .fade-enter,.fade-leave-to{
+        .v-enter,.v-leave-to {
             opacity: 0;
         }
-        .fade-enter-active,.fade-leave-active{
-            transition: opacity 2s;
+        .v-enter-active,.v-leave-active {
+            transition: opacity 1s;
         }
     </style>
 </head>
 <body>
 
     <div id="app">
-        <transition name="fade"
-                    mode="in-out"
-        >
-            <component :is="type"></component>
-        </transition>
+        <transition-group>
+            <div v-for="item of list" :key="item.id">{{item.title}}</div>
+        </transition-group>
         <button @click="handleClick">change</button>
     </div>
     <script>
-      Vue.component('child',{
-          template:'<div>child</div>'
-      })
-      Vue.component('child-one',{
-          template:'<div>child-one</div>'
-      })
+      var count = 0
       var vm = new Vue({
           el:"#app",
           data:{
-              type:'child'
+              list:[]
           },
           methods:{
               handleClick:function(){
-                 this.type = this.type === 'child' ? 'child-one' : 'child'
+                  this.list.push({
+                      id:count++,
+                      title:'Hello World'
+                  })
               }
           }
-      })
+        })   
     </script>
 </body>
 </html>
