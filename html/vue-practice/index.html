@@ -6,36 +6,46 @@
     <script src="./vue.js"></script>
     <script src="./Velocity.js "></script>
     <link rel="stylesheet" type="text/css" href="./animate.css">
-    <style>
-        .v-enter,.v-leave-to {
-            opacity: 0;
-        }
-        .v-enter-active,.v-leave-active {
-            transition: opacity 1s;
-        }
-    </style>
 </head>
 <body>
 
     <div id="app">
-        <transition-group>
-            <div v-for="item of list" :key="item.id">{{item.title}}</div>
-        </transition-group>
+        <fade :show="show">
+            <div>hello world</div>
+        </fade>
         <button @click="handleClick">change</button>
     </div>
     <script>
-      var count = 0
+      Vue.component('fade',{
+          props:['show'],
+          template:`
+            <transition @before-enter="handleBeforeEnter"
+              @enter="handleEnter"
+            >
+                <slot v-if="show"></slot>
+            </transition>
+          `,
+          methods:{
+              handleBeforeEnter:function(el){
+                  el.style.color="red"
+              },
+
+          }
+      })
       var vm = new Vue({
           el:"#app",
           data:{
-              list:[]
+              show:true
           },
           methods:{
               handleClick:function(){
-                  this.list.push({
-                      id:count++,
-                      title:'Hello World'
-                  })
+                  this.show = !this.show
+              },
+              handleEnter:function(el,dine){
+                  setTimeout(() => {
+                      el.style.color="green"
+                      dine()
+                  }, 2000);
               }
           }
         })   
